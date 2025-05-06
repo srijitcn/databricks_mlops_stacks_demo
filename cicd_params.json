@@ -1,0 +1,12 @@
+{
+  "input_root_dir": "mlops_stacks_demo",
+  "input_cloud": "aws",
+  "input_cicd_platform": "github_actions_for_github_enterprise_servers",
+  "input_default_branch": "main",
+  "input_release_branch": "release",
+  "cloud_specific_node_type_id": "v0.221.0",
+  "input_cli_version": "v0.221.0",
+  "test_catalog_name": "mlops_test",
+  "staging_catalog_name": "mlops_staging",
+  "prod_catalog_name": "mlops_prod"
+}

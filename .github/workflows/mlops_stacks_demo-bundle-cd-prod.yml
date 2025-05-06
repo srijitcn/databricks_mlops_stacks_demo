@@ -1,0 +1,42 @@
+# This GitHub workflow deploys Bundle resources (ML resource config and more)
+# defined under mlops_stacks_demo/resources/*
+# and mlops_stacks_demo/databricks.yml with prod deployment target configs,
+# when PRs are merged into the release branch
+name: Bundle Deployment for mlops_stacks_demo Prod
+
+on:
+  push:
+    branches:
+      - 'release'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./mlops_stacks_demo
+
+env: 
+  DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST_PROD }} #PROD_
+  DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID_PROD }} #PROD_
+  DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET_PROD }} #PROD_
+  # DATABRICKS_TOKEN: ${{ secrets.PROD_WORKSPACE_TOKEN }}
+  # DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }} #PROD_
+  
+
+jobs:
+  prod:
+    concurrency: mlops_stacks_demo-prod-bundle-job
+    # runs-on: ubuntu-latest
+    runs-on:
+      group: databricks-field-eng-protected-runner-group
+      labels: ubuntu-latest #ubuntu-20.04 #linux-ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: databricks/setup-cli@v0.229.0
+      - name: Validate Bundle For Prod
+        id: validate
+        run: |
+          databricks bundle validate -t mlops_prod
+      - name: Deploy Bundle to Prod
+        id: deploy
+        run: |
+          databricks bundle deploy -t mlops_prod
