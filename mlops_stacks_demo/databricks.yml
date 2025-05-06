@@ -23,23 +23,28 @@ include:
 
 # Deployment Target specific values for workspace
 targets:
-  dev: # UC Catalog Name 
+  dev: 
     default: true
+    variables:
+      node_type: Standard_D4ds_v5
     workspace:
-      # TODO: add dev workspace URL
       host: https://adb-830292400663869.9.azuredatabricks.net
 
-#NOTE: Update/Use relevant URLs for your respective workspace envs (test)
-
   mlops_staging:
+    variables:
+      node_type: Standard_D4ds_v5
     workspace:
       host: https://adb-830292400663869.9.azuredatabricks.net
 
   mlops_prod:
+    variables:
+      node_type: Standard_D4ds_v5
     workspace:
       host: https://adb-830292400663869.9.azuredatabricks.net
 
   mlops_test:
+    variables:
+      node_type: Standard_D4ds_v5
     workspace:
       host: https://adb-830292400663869.9.azuredatabricks.net
 

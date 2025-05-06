@@ -6,7 +6,7 @@ new_cluster: &new_cluster
   new_cluster:
     num_workers: 3
     spark_version: 15.3.x-cpu-ml-scala2.12
-    node_type_id: i3.xlarge
+    node_type_id:  ${var.node_type}
     custom_tags:
       clusterSource: mlops-stacks_0.4
 

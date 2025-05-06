@@ -2,7 +2,8 @@ new_cluster: &new_cluster
   new_cluster:
     num_workers: 3
     spark_version: 15.3.x-cpu-ml-scala2.12
-    node_type_id: i3.xlarge
+    #node_type_id: i3.xlarge
+    node_type_id: ${var.node_type}
     custom_tags:
       clusterSource: mlops-stacks_0.4
 
@@ -28,11 +29,11 @@ resources:
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
 
-      schedule:
-        # quartz_cron_expression: "0 0 11 * * ?" # daily at 11am
-        # quartz_cron_expression: "0 0/10 * * * ?" #for testing every 10mins 0 mins past the hour
-        quartz_cron_expression: "0 35 * * * ?"
-        timezone_id: UTC
+      #schedule:
+      #  # quartz_cron_expression: "0 0 11 * * ?" # daily at 11am
+      #  # quartz_cron_expression: "0 0/10 * * * ?" #for testing every 10mins 0 mins past the hour
+      #  quartz_cron_expression: "0 35 * * * ?"
+      #  timezone_id: UTC
       <<: *permissions
       # If you want to turn on notifications for this job, please uncomment the below code,
       # and provide a list of emails to the on_failure argument.
